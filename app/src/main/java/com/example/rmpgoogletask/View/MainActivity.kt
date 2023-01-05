@@ -1,10 +1,13 @@
 package com.example.rmpgoogletask.View
 
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rmpgoogletask.Model.Domain.Task
+import com.example.rmpgoogletask.R
 import com.example.rmpgoogletask.ViewModel.TaskAdapter
 import com.example.rmpgoogletask.databinding.ActivityMainBinding
 
@@ -27,13 +30,29 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener {
         binding.apply {
             tasksList.layoutManager = LinearLayoutManager(this@MainActivity)
             tasksList.adapter = taskAdapter
-        }
 
-        taskAdapter.addTask(Task(1, "task 1111", true))
-        taskAdapter.addTask(Task(2, "task 2", false))
-        taskAdapter.addTask(Task(3, "task 3", true))
-        for (i in 1..100) {
-            taskAdapter.addTask(Task(4, "task ${i}", false))
+            addTaskIcon.setOnClickListener { openCreationOfTask() }
+        }
+    }
+
+    fun createTask(id: Int, title: String, isFavourite: Boolean) {
+        taskAdapter.addTask(Task(id, title, isFavourite))
+    }
+
+    fun openCreationOfTask() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_task, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.taskName)
+
+        with(builder) {
+            setTitle("Create task")
+            setPositiveButton("ok") {dialog, which ->
+                createTask(1, editText.text.toString(), false)
+            }
+            setNegativeButton("exit") { dialog, which ->}
+            setView(dialogLayout)
+            show()
         }
     }
 
