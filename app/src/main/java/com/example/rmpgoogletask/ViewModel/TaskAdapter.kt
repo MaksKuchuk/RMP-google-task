@@ -12,14 +12,13 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
     val taskList = ArrayList<Task>()
     class TaskHolder(item: View): RecyclerView.ViewHolder(item) {
         val binding = TaskItemBinding.bind(item)
-        lateinit var adapter: TaskAdapter
 
         fun bind(task: Task, listener: Listener, position: Int) = with(binding){
 
             checkIcon.setImageResource(R.drawable.checkmark_complete_correct_svgrepo_com)
 
             checkIcon.setOnClickListener {
-                listener.removeByPosition(position)
+                listener.removeTaskByPosition(position)
             }
 
             favouriteBtnIcon.setOnClickListener {
@@ -39,10 +38,6 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
             }
 
             taskTitle.text = task.title;
-        }
-
-        fun setAdap(taskAdapter: TaskAdapter) {
-            adapter = taskAdapter
         }
     }
 
@@ -66,10 +61,11 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
 
     fun removeTask(position: Int) {
         taskList.removeAt(position)
+        notifyDataSetChanged()
     }
 
     interface Listener {
         fun addToFavourite(task: Task)
-        fun removeByPosition(position: Int)
+        fun removeTaskByPosition(position: Int)
     }
 }
