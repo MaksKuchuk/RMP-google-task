@@ -7,7 +7,7 @@
     tools:context=".View.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/task0Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -25,21 +25,21 @@
         android:layout_marginEnd="20dp"
         android:contentDescription="@string/add"
         android:src="@drawable/plus_circle_svgrepo_com"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/task0Title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/task0Title" />
 
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/favIconBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:contentDescription="@string/task"
         android:src="@drawable/star_f_svgrepo_com"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/task0Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="@+id/task0Title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linLay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/task0Title"
         tools:itemCount="3"
         tools:listitem="@layout/task_item" />
 

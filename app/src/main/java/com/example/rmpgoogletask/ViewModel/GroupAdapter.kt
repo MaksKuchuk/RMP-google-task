@@ -16,6 +16,8 @@ class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.G
 
         fun bind(group: Group, listener: Listener, position: Int) = with(binding) {
             listNum.text = group.name
+
+            listNum.setOnClickListener { listener.setFilteredGroupId(group.id) }
         }
     }
 
@@ -45,5 +47,6 @@ class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.G
     interface Listener {
         fun toGroup(group: Group)
         fun removeGroupByPosition(position: Int)
+        fun setFilteredGroupId(id: Int)
     }
 }

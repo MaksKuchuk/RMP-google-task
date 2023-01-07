@@ -37,18 +37,24 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
 
             addTaskIcon.setOnClickListener { openCreationOfTask() }
             addList.setOnClickListener { openCreationOfList() }
+            task0Title.setOnClickListener { setFilteredGroupId(-1) }
+            favIconBtn.setOnClickListener { taskAdapter.setFilterByFavourite() }
+
+            createGroup(1, "group1")
+            createGroup(2, "group2")
+            createGroup(3, "group3")
         }
     }
 
     fun createTask(id: Int, title: String, description: String, date: LocalDateTime,
                    isFavourite: Boolean, isSubtaskFor: Int, groupId: Int) {
-        taskAdapter.addTask(Task(id, title, description, date, isFavourite, isSubtaskFor, groupId))
+        taskAdapter.addTask(Task(id, title, description, date, isFavourite,
+            isSubtaskFor, taskAdapter.filteredGroupId))
     }
 
     fun createGroup(id: Int, name: String) {
         groupAdapter.addGroup(Group(id, name))
     }
-
 
     fun openCreationOfTask() {
         val builder = AlertDialog.Builder(this)
@@ -98,11 +104,15 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
 
     override fun removeGroupByPosition(position: Int) {
         groupAdapter.groupList.removeAt(position)
-        taskAdapter.notifyDataSetChanged()
+        groupAdapter.notifyDataSetChanged()
+    }
+
+    override fun setFilteredGroupId(id: Int) {
+        taskAdapter.setFilterGroupId(id)
     }
 
     override fun removeTaskByPosition(position: Int) {
         taskAdapter.taskList.removeAt(position)
-        taskAdapter.notifyDataSetChanged()
+        taskAdapter.setFilterGroupId(taskAdapter.filteredGroupId)
     }
 }
