@@ -66,7 +66,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/addList">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/groupList"
@@ -80,5 +80,16 @@
             tools:itemCount="5"
             tools:listitem="@layout/group_item" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/addList"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:contentDescription="@string/addlist"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasksList"
+        app:srcCompat="@drawable/add_square_svgrepo_com" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.example.rmpgoogletask.R
 import com.example.rmpgoogletask.ViewModel.GroupAdapter
 import com.example.rmpgoogletask.ViewModel.TaskAdapter
 import com.example.rmpgoogletask.databinding.ActivityMainBinding
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Listener {
     lateinit var binding: ActivityMainBinding
@@ -35,33 +36,51 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
             groupList.adapter = groupAdapter
 
             addTaskIcon.setOnClickListener { openCreationOfTask() }
-
-            createGroup(1, "listaa")
-            createGroup(1, "listaa 1")
-            createGroup(1, "listaa 2")
-            createGroup(1, "listaa 3")
+            addList.setOnClickListener { openCreationOfList() }
         }
     }
 
-    fun createTask(id: Int, title: String, isFavourite: Boolean) {
-        taskAdapter.addTask(Task(id, title, isFavourite, 1))
+    fun createTask(id: Int, title: String, description: String, date: LocalDateTime,
+                   isFavourite: Boolean, isSubtaskFor: Int, groupId: Int) {
+        taskAdapter.addTask(Task(id, title, description, date, isFavourite, isSubtaskFor, groupId))
     }
 
     fun createGroup(id: Int, name: String) {
         groupAdapter.addGroup(Group(id, name))
     }
 
+
     fun openCreationOfTask() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dialogLayout = inflater.inflate(R.layout.create_task, null)
-        val editText = dialogLayout.findViewById<EditText>(R.id.taskName)
+        val tskNm = dialogLayout.findViewById<EditText>(R.id.taskName)
+        val tskDesc = dialogLayout.findViewById<EditText>(R.id.taskDescription)
 
         with(builder) {
             setTitle("Create task")
             setPositiveButton("ok") {dialog, which ->
+                if (tskNm.text.toString() != "")
+                    createTask(1, tskNm.text.toString(), tskDesc.text.toString(),
+                        LocalDateTime.now(), false, 0, 0)
+            }
+            setNegativeButton("exit") { dialog, which -> }
+            setView(dialogLayout)
+            show()
+        }
+    }
+
+    fun openCreationOfList() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.create_list, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.listName)
+
+        with(builder) {
+            setTitle("Create group")
+            setPositiveButton("ok") {dialog, which ->
                 if (editText.text.toString() != "")
-                    createTask(1, editText.text.toString(), false)
+                    createGroup(1, editText.text.toString())
             }
             setNegativeButton("exit") { dialog, which -> }
             setView(dialogLayout)
