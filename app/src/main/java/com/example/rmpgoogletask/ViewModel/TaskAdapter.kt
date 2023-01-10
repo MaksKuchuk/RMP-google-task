@@ -20,9 +20,9 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
 
             checkIcon.setImageResource(R.drawable.checkmark_complete_correct_svgrepo_com)
 
-            checkIcon.setOnClickListener {
-                listener.removeTask(task)
-            }
+            checkIcon.setOnClickListener { listener.removeTask(task) }
+
+            taskTitle.setOnClickListener { listener.goToTask(task) }
 
             favouriteBtnIcon.setOnClickListener {
                 listener.addToFavourite(task)
@@ -91,5 +91,6 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
     interface Listener {
         fun addToFavourite(task: Task)
         fun removeTask(task: Task)
+        fun goToTask(task: Task)
     }
 }

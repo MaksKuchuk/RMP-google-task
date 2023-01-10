@@ -1,5 +1,6 @@
 package com.example.rmpgoogletask.View
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
@@ -44,11 +45,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
             createGroup(1, "group1")
             createGroup(2, "group2")
             createGroup(3, "group3")
-            createTask(1, "task1", "",  LocalDateTime.now(), false, 0, 1)
-            createTask(2, "task2", "",  LocalDateTime.now(), false, 0, 2)
-            createTask(3, "task3", "",  LocalDateTime.now(), false, 0, 3)
-            createTask(4, "task4", "",  LocalDateTime.now(), false, 0, 0)
-            createTask(5, "task5", "",  LocalDateTime.now(), false, 0, 0)
+            createTask(1, "task1", "desc for task1",  LocalDateTime.now(), false, 0, 1)
+            createTask(2, "task2", "desc for task2 lalala lalala lalala lalala",  LocalDateTime.now(), false, 0, 2)
+            createTask(3, "task3", "desc for task3 ya ne ya",  LocalDateTime.now(), false, 0, 3)
+            createTask(4, "task4", "desc for task4 its my life i cant stop it",  LocalDateTime.now(), false, 0, 0)
+            createTask(5, "task5", "desc for task5 lololoshka",  LocalDateTime.now(), false, 0, 0)
         }
     }
 
@@ -146,5 +147,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
             }
         }
         taskAdapter.notifyDataSetChanged()
+    }
+
+    override fun goToTask(task: Task) {
+        startActivity(Intent(this, TaskContentActivity::class.java).apply {
+            putExtra("taskItem", task)
+        })
     }
 }
