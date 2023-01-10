@@ -10,6 +10,7 @@ import com.example.rmpgoogletask.databinding.GroupItemBinding
 
 class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.GroupHolder>() {
     val groupList = ArrayList<Group>()
+    var locGroup: Group = Group(-1, "")
 
     class GroupHolder(item: View): RecyclerView.ViewHolder(item) {
         val binding = GroupItemBinding.bind(item)
@@ -17,7 +18,9 @@ class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.G
         fun bind(group: Group, listener: Listener, position: Int) = with(binding) {
             listNum.text = group.name
 
-            listNum.setOnClickListener { listener.setFilteredGroupId(group.id) }
+            listNum.setOnClickListener {
+                listener.setFilteredGroup(group)
+            }
         }
     }
 
@@ -45,8 +48,7 @@ class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.G
     }
 
     interface Listener {
-        fun toGroup(group: Group)
-        fun removeGroupByPosition(position: Int)
-        fun setFilteredGroupId(id: Int)
+        fun removeGroup(group: Group)
+        fun setFilteredGroup(group: Group)
     }
 }

@@ -16,12 +16,12 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
     class TaskHolder(item: View): RecyclerView.ViewHolder(item) {
         val binding = TaskItemBinding.bind(item)
 
-        fun bind(task: Task, listener: Listener, position: Int) = with(binding){
+        fun bind(task: Task, listener: Listener) = with(binding){
 
             checkIcon.setImageResource(R.drawable.checkmark_complete_correct_svgrepo_com)
 
             checkIcon.setOnClickListener {
-                listener.removeTaskByPosition(position)
+                listener.removeTask(task)
             }
 
             favouriteBtnIcon.setOnClickListener {
@@ -50,7 +50,7 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        holder.bind(taskListFiltered[position], listener, position);
+        holder.bind(taskListFiltered[position], listener);
     }
 
     override fun getItemCount(): Int {
@@ -59,11 +59,6 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
 
     fun addTask(task: Task) {
         taskList.add(task)
-        setFilterGroupId(filteredGroupId)
-    }
-
-    fun removeTask(position: Int) {
-        taskList.removeAt(position)
         setFilterGroupId(filteredGroupId)
     }
 
@@ -95,6 +90,6 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
 
     interface Listener {
         fun addToFavourite(task: Task)
-        fun removeTaskByPosition(position: Int)
+        fun removeTask(task: Task)
     }
 }

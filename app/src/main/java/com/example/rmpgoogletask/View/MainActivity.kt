@@ -37,19 +37,25 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
 
             addTaskIcon.setOnClickListener { openCreationOfTask() }
             addList.setOnClickListener { openCreationOfList() }
-            task0Title.setOnClickListener { setFilteredGroupId(-1) }
+            task0Title.setOnClickListener { setFilteredGroup(Group(-1, "")) }
             favIconBtn.setOnClickListener { taskAdapter.setFilterByFavourite() }
+            removeList.setOnClickListener { openDeletionOfGroup() }
 
             createGroup(1, "group1")
             createGroup(2, "group2")
             createGroup(3, "group3")
+            createTask(1, "task1", "",  LocalDateTime.now(), false, 0, 1)
+            createTask(2, "task2", "",  LocalDateTime.now(), false, 0, 2)
+            createTask(3, "task3", "",  LocalDateTime.now(), false, 0, 3)
+            createTask(4, "task4", "",  LocalDateTime.now(), false, 0, 0)
+            createTask(5, "task5", "",  LocalDateTime.now(), false, 0, 0)
         }
     }
 
     fun createTask(id: Int, title: String, description: String, date: LocalDateTime,
                    isFavourite: Boolean, isSubtaskFor: Int, groupId: Int) {
         taskAdapter.addTask(Task(id, title, description, date, isFavourite,
-            isSubtaskFor, taskAdapter.filteredGroupId))
+            isSubtaskFor, groupId))
     }
 
     fun createGroup(id: Int, name: String) {
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
             setPositiveButton("ok") {dialog, which ->
                 if (tskNm.text.toString() != "")
                     createTask(1, tskNm.text.toString(), tskDesc.text.toString(),
-                        LocalDateTime.now(), false, 0, 0)
+                        LocalDateTime.now(), false, 0, taskAdapter.filteredGroupId)
             }
             setNegativeButton("exit") { dialog, which -> }
             setView(dialogLayout)
@@ -94,25 +100,51 @@ class MainActivity : AppCompatActivity(), TaskAdapter.Listener, GroupAdapter.Lis
         }
     }
 
+    fun openDeletionOfGroup() {
+        val builder = AlertDialog.Builder(this)
+
+        with(builder) {
+            setTitle("Delete group")
+            setPositiveButton("ok") {dialog, which ->
+                removeGroup(groupAdapter.locGroup)
+            }
+            setNegativeButton("exit") { dialog, which -> }
+            show()
+        }
+    }
+
     override fun addToFavourite(task: Task) {
         Toast.makeText(this, "task ${task.id}", Toast.LENGTH_SHORT).show()
     }
 
-    override fun toGroup(group: Group) {
-        Toast.makeText(this, "aaaa", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun removeGroupByPosition(position: Int) {
-        groupAdapter.groupList.removeAt(position)
+    override fun removeGroup(group: Group) {
+        for (i in 0 until groupAdapter.groupList.size) {
+            if (groupAdapter.groupList[i] == group) {
+                groupAdapter.groupList.removeAt(i)
+                break
+            }
+        }
         groupAdapter.notifyDataSetChanged()
     }
 
-    override fun setFilteredGroupId(id: Int) {
-        taskAdapter.setFilterGroupId(id)
+    override fun setFilteredGroup(group: Group) {
+        taskAdapter.setFilterGroupId(group.id)
+        groupAdapter.locGroup = group
     }
 
-    override fun removeTaskByPosition(position: Int) {
-        taskAdapter.taskList.removeAt(position)
-        taskAdapter.setFilterGroupId(taskAdapter.filteredGroupId)
+    override fun removeTask(task: Task) {
+        for (i in 0 until taskAdapter.taskList.size) {
+            if (taskAdapter.taskList[i] == task) {
+                taskAdapter.taskList.removeAt(i);
+                break
+            }
+        }
+        for (i in 0 until taskAdapter.taskListFiltered.size) {
+            if (taskAdapter.taskListFiltered[i] == task) {
+                taskAdapter.taskListFiltered.removeAt(i);
+                break
+            }
+        }
+        taskAdapter.notifyDataSetChanged()
     }
 }

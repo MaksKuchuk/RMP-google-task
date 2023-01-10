@@ -61,11 +61,11 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="9dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/removeList"
         app:layout_constraintStart_toEndOf="@+id/addList">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -79,6 +79,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="5"
             tools:listitem="@layout/group_item" />
+
     </LinearLayout>
 
     <ImageView
@@ -91,5 +92,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasksList"
         app:srcCompat="@drawable/add_square_svgrepo_com" />
+
+    <ImageView
+        android:id="@+id/removeList"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasksList"
+        app:layout_constraintVertical_bias="0.438"
+        app:srcCompat="@drawable/minus_box_svgrepo_com" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
