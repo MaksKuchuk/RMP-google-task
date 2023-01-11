@@ -3,7 +3,6 @@ package com.example.rmpgoogletask.Model.Domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 
 @Entity (tableName = "Tasks")
 data class Task (

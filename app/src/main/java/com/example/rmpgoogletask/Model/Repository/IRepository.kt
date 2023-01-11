@@ -1,7 +1,6 @@
 package com.example.rmpgoogletask.Model.Repository
 
 import androidx.room.Dao
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface IRepository<T> {

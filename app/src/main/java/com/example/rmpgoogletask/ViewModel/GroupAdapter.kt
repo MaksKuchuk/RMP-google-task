@@ -7,9 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rmpgoogletask.Model.Domain.Group
 import com.example.rmpgoogletask.R
 import com.example.rmpgoogletask.databinding.GroupItemBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class GroupAdapter(val listener: Listener) : RecyclerView.Adapter<GroupAdapter.GroupHolder>() {
     val groupList = ArrayList<Group>()

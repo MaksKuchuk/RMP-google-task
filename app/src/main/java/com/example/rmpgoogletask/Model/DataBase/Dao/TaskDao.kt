@@ -2,7 +2,6 @@ package com.example.rmpgoogletask.Model.DataBase.Dao
 
 import androidx.room.*
 import com.example.rmpgoogletask.Model.Domain.Task
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
