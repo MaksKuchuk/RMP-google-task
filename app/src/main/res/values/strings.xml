@@ -15,4 +15,5 @@
     <string name="subtasks">Subtasks</string>
     <string name="removegroup">removeGroup</string>
     <string name="textview">TextView</string>
+    <string name="ref">ref</string>
 </resources>

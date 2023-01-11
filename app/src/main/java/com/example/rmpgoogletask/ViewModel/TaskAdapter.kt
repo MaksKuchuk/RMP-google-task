@@ -10,8 +10,7 @@ import com.example.rmpgoogletask.databinding.TaskItemBinding
 
 class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
     val taskList = ArrayList<Task>()
-    val taskListFiltered = ArrayList<Task>()
-    var filteredGroupId: Int = 0
+    var filteredGroupId: Int? = 0 // -1 favourite, 0 common, 1... groupId
 
     class TaskHolder(item: View): RecyclerView.ViewHolder(item) {
         val binding = TaskItemBinding.bind(item)
@@ -50,42 +49,11 @@ class TaskAdapter(val listener: Listener): RecyclerView.Adapter<TaskAdapter.Task
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        holder.bind(taskListFiltered[position], listener);
+        holder.bind(taskList[position], listener);
     }
 
     override fun getItemCount(): Int {
-        return taskListFiltered.size
-    }
-
-    fun addTask(task: Task) {
-        taskList.add(task)
-        setFilterGroupId(filteredGroupId)
-    }
-
-    fun setFilterGroupId(id: Int) {
-        filteredGroupId = id
-
-        taskListFiltered.clear()
-        for (item in taskList) {
-            if ((item.groupId == filteredGroupId) || (filteredGroupId == -1)) {
-                taskListFiltered.add(item)
-            }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun setFilterByFavourite() {
-        taskListFiltered.clear()
-        for (item in taskList) {
-            if (item.isFavourite) {
-                taskListFiltered.add(item)
-            }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun getFilterGroupId(): Int {
-        return filteredGroupId
+        return taskList.size
     }
 
     interface Listener {

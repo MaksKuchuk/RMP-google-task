@@ -82,4 +82,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskNameContent" />
+
+    <ImageView
+        android:id="@+id/refreshNameDesc"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="25dp"
+        android:contentDescription="@string/ref"
+        app:layout_constraintBottom_toBottomOf="@+id/addSubtask"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/addSubtask"
+        app:srcCompat="@drawable/refresh_button_svgrepo_com" />
 </androidx.constraintlayout.widget.ConstraintLayout>
